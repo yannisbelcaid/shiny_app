@@ -1,0 +1,44 @@
+Spatial app presentation
+========================================================
+author: BEAZIZ Raphael, BELCAID Yannis, IEHL Marc-Atnoine 
+date: 29/11/2019
+autosize: true
+
+URL
+========================================================
+
+- https://yannisbelcaid.shinyapps.io/appdir/
+- https://github.com/yannisbelcaid/shiny_app.git
+- http://rpubs.com/yannisbelcaid/555043
+
+
+How to use Spatial App 
+========================================================
+#### Spatial app is an intercative way to show the cases of lung cancers in function of the different county in Ohio state (USA). 
+
+- First step : upload csv file ('shiny_app/data/data.csv') 
+- Second step : upload map files which are in 'shiny_app/data/fe_2007_39_county/' folder 
+('fe_2007_39_county.dbf', 'fe_2007_39_county.prj', 'fe_2007_39_county.shp', 'fe_2007_39_county.shx') 
+- Third step : select what you want to see (cases or population )
+- Fourth step : select the year (between 1968 and 1988)
+
+
+About our data
+========================================================
+#### Spatial app dataset is based on csv file about the lung cancer cases in Ohio. As you can see there are four pretty simple features. The dataset show us how many cases of cancer there are in each county of Ohio state. 
+
+```{r ,echo=FALSE}
+cancer_dataset <- read.csv('~/Desktop/appdir/data/data.csv')
+head(cancer_dataset)
+```
+
+Insights 
+========================================================
+#### By using Spatial app, we've seen the increase of cancer cases since 1968. Secondly we found that the number of cancer cases was proportional to the size of the population. 
+```{r echo=FALSE, fig.height=6.5, fig.width=6.5, 5, fig.width=6}
+subset <- subset(cancer_dataset, select=c(population, cases))
+plot(subset, main="Cancer cases in function of the population size", xlab="population size", ylab="cancer cases")
+
+subsetv1 <- subset(cancer_dataset, select=c(year, cases))
+plot(subsetv1, type="l", main="Cancer cases in function of the year", xlab="year", ylab="cancer cases")
+```
